@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"limits": "c",
+		"new": "c",
+		"push_swap.h": "c",
+		"dblist.h": "c"
+	}
+}
