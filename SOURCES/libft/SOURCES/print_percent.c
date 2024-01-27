@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dblstnew.c                                      :+:      :+:    :+:   */
+/*   print_percent.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/19 10:41:19 by cdeville          #+#    #+#             */
-/*   Updated: 2024/01/22 17:25:25 by cdeville         ###   ########.fr       */
+/*   Created: 2023/11/17 14:39:05 by cdeville          #+#    #+#             */
+/*   Updated: 2024/01/27 12:14:26 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INCLUDES/dblist.h"
+#include "../INCLUDES/libft.h"
 
-t_dblist	*ft_dblstnew(void *content)
+int	print_percent(t_struct *param)
 {
-	t_dblist	*node;
-
-	node = (t_dblist *)malloc(sizeof(t_dblist));
-	if (!node)
-		return (NULL);
-	node->content = content;
-	node->prev = NULL;
-	node->next = NULL;
-	return (node);
+	ft_putchar_fd('%', 1);
+	param->count += 1;
+	return (0);
 }

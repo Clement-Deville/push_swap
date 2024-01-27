@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 13:55:59 by cdeville          #+#    #+#             */
-/*   Updated: 2024/01/22 15:49:51 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/01/27 12:19:34 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdarg.h>
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
@@ -52,6 +53,47 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 
+# define HEXA_BASE_UP "0123456789ABCDEF"
+# define HEXA_BASE_LOW "0123456789abcdef"
+
+typedef int	t_bool;
+# define FALSE 0
+# define TRUE 1
+
+# define INT_MIN -2147483648
+# define INT_MAX 2147483647
+
+typedef struct s_struct {
+	t_bool	hashtag;
+	t_bool	zero;
+	t_bool	minus;
+	t_bool	space;
+	t_bool	plus;
+	t_bool	is_null;
+	t_bool	isnegatif;
+	int		width;
+	int		precision;
+	char	identifier;
+	int		count;
+}	t_struct;
+
+void	print_parameter(t_struct *param, va_list *ptr);
+int		ft_printf(const char *str, ...);
+t_bool	isflag(char c);
+void	reset(t_struct *param);
+void	field_width(char c, int size, t_struct *param);
+void	field_space_begin(t_struct *param, int size_printed, int number);
+void	putnbr_unsigned_fd(unsigned int number, int fd);
+
+int		print_percent(t_struct *param);
+int		print_char(t_struct *param, va_list *ptr);
+int		print_hexa(t_struct *param, va_list *ptr);
+int		print_integer(t_struct *param, va_list *ptr);
+int		print_unsigned(t_struct *param, va_list *ptr);
+int		print_pointer(t_struct *param, va_list *ptr);
+int		print_string(t_struct *param, va_list *ptr);
+int		print_nil(t_struct *param, char *str);
+
 typedef struct s_list
 {
 	void			*content;
@@ -67,5 +109,30 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+typedef struct s_dblist
+{
+	struct s_dblist	*prev;
+	struct s_dblist	*next;
+	void			*content;
+}	t_dblist;
+
+t_dblist	*ft_dblstnew(void *content);
+t_dblist	*ft_dblstadd_after(t_dblist *actual, t_dblist *new);
+void		ft_dblstadd_before(t_dblist *actual, t_dblist *new);
+void		ft_dblstdelone(t_dblist *dblst, void (*del)(void*));
+void		ft_dblstclear(t_dblist **lst, void (*del)(void*));
+t_dblist	*ft_dblstfirst(void *content);
+
+
+typedef struct s_freeparam {
+	t_bool	pointer;
+	t_bool	split;
+	t_bool	list;
+	t_bool	dblist;
+}	t_freeparam;
+
+int		ft_free(const char *str, ...);
+void	free_split(char **split);
 
 #endif

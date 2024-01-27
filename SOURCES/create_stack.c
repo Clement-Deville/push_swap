@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:54:07 by cdeville          #+#    #+#             */
-/*   Updated: 2024/01/22 19:24:16 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/01/27 16:45:17 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ t_dblist	*create_stack(int argc, char *argv[])
 	int			i;
 	int			j;
 	int			*number;
-	t_dblist	*first;
+	t_dblist	*begin;
 	t_dblist	*actual;
 	char		**split_args;
 
 	i = 1;
-	first = NULL;
+	begin = NULL;
 	while (i < argc)
 	{
 		split_args = ft_split(argv[i], ' ');
@@ -37,23 +37,27 @@ t_dblist	*create_stack(int argc, char *argv[])
 			number = ft_atoi_edited(split_args[j]);
 			if (!number)
 			{
-				exit_program(first);
+				error();
+				ft_free("%s", split_args);
+				exit_program(&begin);
 			}
-			if (!first)
+			if (!begin)
 			{
-				first = ft_dblstfirst(number);
-				actual = first;
+				begin = ft_dblstfirst(number);
+				actual = begin;
 			}
 			else
 				actual = ft_dblstadd_after(actual, ft_dblstnew(number));
 			if (!actual)
 			{
 				error();
-				exit_program(first);
+				ft_free("%s", split_args);
+				exit_program(&begin);
 			}
 			j++;
 		}
+		ft_free("%s", split_args);
 		i++;
 	}
-	return (first);
+	return (begin);
 }

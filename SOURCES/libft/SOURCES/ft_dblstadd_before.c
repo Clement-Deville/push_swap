@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_dblstadd_before.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/19 11:22:18 by cdeville          #+#    #+#             */
-/*   Updated: 2024/01/27 12:30:20 by cdeville         ###   ########.fr       */
+/*   Created: 2024/01/19 10:50:39 by cdeville          #+#    #+#             */
+/*   Updated: 2024/01/27 12:14:05 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "../INCLUDES/libft.h"
 
-# include "../SOURCES/libft/INCLUDES/libft.h"
-
-// TESTER
-
-# include <stdio.h>
-
-//
-
-t_dblist	*create_stack(int argc, char *argv[]);
-int			*ft_atoi_edited(const char *nptr);
-int			error(void);
-int			exit_program(t_dblist **first);
-
-#endif
+void	ft_dblstadd_before(t_dblist *actual, t_dblist *new)
+{
+	if (!actual || !new)
+		return ;
+	new->next = actual;
+	new->prev = actual->prev;
+	if (actual->prev)
+		actual->prev->next = new;
+	actual->prev = new;
+}

@@ -6,18 +6,18 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:34:59 by cdeville          #+#    #+#             */
-/*   Updated: 2024/01/19 18:52:20 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/01/26 19:18:21 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isspace(int c)
+static int	ft_isspace(int c)
 {
 	if ((c >= 8 && c <= 13) || c == 32)
 		return (1);
 	return (0);
 }
 
-int	ft_isnum(int c)
+static int	ft_isnum(int c)
 {
 	if ((c >= 48 && c <= 57))
 		return (1);

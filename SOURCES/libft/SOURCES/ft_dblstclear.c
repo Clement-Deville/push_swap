@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_dblstclear.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/19 11:22:18 by cdeville          #+#    #+#             */
-/*   Updated: 2024/01/27 12:30:20 by cdeville         ###   ########.fr       */
+/*   Created: 2024/01/27 11:22:18 by cdeville          #+#    #+#             */
+/*   Updated: 2024/01/27 12:49:16 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "../INCLUDES/libft.h"
 
-# include "../SOURCES/libft/INCLUDES/libft.h"
+void	ft_dblstclear(t_dblist **lst, void (*del)(void*))
+{
+	t_dblist	*next;
+	t_dblist	*actual;
 
-// TESTER
-
-# include <stdio.h>
-
-//
-
-t_dblist	*create_stack(int argc, char *argv[]);
-int			*ft_atoi_edited(const char *nptr);
-int			error(void);
-int			exit_program(t_dblist **first);
-
-#endif
+	if (!del || !lst || !*lst)
+		return ;
+	actual = *lst;
+	while (actual)
+	{
+		next = actual->next;
+		ft_dblstdelone(actual, del);
+		actual = next;
+	}
+	*lst = NULL;
+	return ;
+}

@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dblstadd_after.c                                :+:      :+:    :+:   */
+/*   ft_dblstnew.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/19 11:07:45 by cdeville          #+#    #+#             */
-/*   Updated: 2024/01/22 17:25:25 by cdeville         ###   ########.fr       */
+/*   Created: 2024/01/19 10:41:19 by cdeville          #+#    #+#             */
+/*   Updated: 2024/01/27 12:14:05 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../INCLUDES/dblist.h"
+#include "../INCLUDES/libft.h"
 
-t_dblist	*ft_dblstadd_after(t_dblist *actual, t_dblist *new)
+t_dblist	*ft_dblstnew(void *content)
 {
-	if (!actual || !new)
+	t_dblist	*node;
+
+	node = (t_dblist *)malloc(sizeof(t_dblist));
+	if (!node)
 		return (NULL);
-	new->prev = actual;
-	new->next = actual->next;
-	if (actual->next)
-		actual->next->prev = new;
-	actual->next = new;
-	return (new);
+	node->content = content;
+	node->prev = NULL;
+	node->next = NULL;
+	return (node);
 }
