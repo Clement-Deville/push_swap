@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:22:18 by cdeville          #+#    #+#             */
-/*   Updated: 2024/01/27 12:30:20 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/02 16:02:03 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 //
 
-t_dblist	*create_stack(int argc, char *argv[]);
+t_dblist	*create_stack(char *split_args[]);
 int			*ft_atoi_edited(const char *nptr);
 int			error(void);
 int			exit_program(t_dblist **first);
