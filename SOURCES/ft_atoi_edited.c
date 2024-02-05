@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 18:50:36 by cdeville          #+#    #+#             */
-/*   Updated: 2024/01/27 20:08:21 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:43:42 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ static int	ft_isnum(int c)
 
 static int	define_sign(const char *nptr, int i)
 {
-	if (nptr[i] == '-' || nptr[i] == '+')
-		if (nptr[i++] == '-')
-			return (-1);
-	return (1);
+	if (nptr[i] == '-')
+		return (-1);
+	else
+		return (1);
 }
 
 int	*ft_atoi_edited(const char *nptr)
@@ -59,15 +59,20 @@ int	*ft_atoi_edited(const char *nptr)
 	while (ft_isspace(nptr[i]))
 		i++;
 	sign = define_sign(nptr, i);
+	if (nptr[i] == '-' || nptr[i] == '+')
+		i++;
 	while (ft_isnum(nptr[i]))
 	{
-		nb = nb * 10 + nptr[i++] - 48;
+		nb = nb * 10 + nptr[i] - 48;
 		has_changed = 1;
+		i++;
 	}
 	nb *= sign;
 	if (!has_changed || is_beyond_int(nb))
 		return (NULL);
 	ptr_nb = malloc(sizeof(int));
+	if (ptr_nb == NULL)
+		return (NULL);
 	*ptr_nb = (int)nb;
 	return (ptr_nb);
 }

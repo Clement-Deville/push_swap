@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:21:16 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/02 17:16:52 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:11:26 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,13 @@ void	print_stack(t_dblist *begin)
 	{
 		i = 0;
 		sd = actual->content;
-		while (i < *(int *)(actual->content))
-		{
-			// color = get_color(*(int *)(actual->content));
-			// ft_printf("\e[%im \e[0m|", color);
-			ft_printf("\e[48;5;%im \e[0m|", *(int *)(actual->content) % 215 + 16);
-			i++;
-		}
+		// while (i < *(int *)(actual->content))
+		// {
+		// 	// color = get_color(*(int *)(actual->content));
+		// 	// ft_printf("\e[%im \e[0m|", color);
+		// 	ft_printf("\e[48;5;%im \e[0m|", *(int *)(actual->content) % 215 + 16);
+		// 	i++;
+		// }
 		ft_printf("\e[0m%d\n", *(int *)(actual->content));
 		actual = actual->next;
 		if (actual == begin)
