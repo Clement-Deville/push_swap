@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:22:18 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/05 18:32:31 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/08 17:46:05 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,22 @@
 
 //
 
-typedef struct s_best
+typedef struct s_best_bt
+{
+	int	rr;
+	int	rrr;
+	int	ra;
+	int	rra;
+	int	rb;
+	int	rrb;
+	int	count;
+}	t_best_bt;
+
+typedef struct s_best_turk
 {
 	char	*moves;
 	int		count;
-}	t_best;
+}	t_best_turk;
 
 typedef struct s_stack
 {

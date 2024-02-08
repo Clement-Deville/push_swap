@@ -36,9 +36,8 @@ $(NAME) : lib $(OBJS)
 	@echo "Push_swap compiled!"
 
 clean:
-	rm -rf $(OBJS)
 	make clean -C $(LIBFT_DIR)
-	$(RM) -rf $(OBJS_DIR)
+	rm -rf $(OBJS_DIR)
 
 fclean: clean
 	rm -f $(NAME)
