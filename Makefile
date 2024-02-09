@@ -3,7 +3,11 @@ SRCS_FILES =		push_swap \
 					error \
 					exit_program \
 					ft_atoi_edited \
-					solve	\
+					solve_turk	\
+					solve_bt	\
+					rotate	\
+					reverse_rotate	\
+					push	\
 
 INCLUDES_FILES =	push_swap \
 

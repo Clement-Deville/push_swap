@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:22:18 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/08 17:46:05 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/09 16:52:01 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 //
 
-typedef struct s_best_bt
+typedef struct s_move_bt
 {
 	int	rr;
 	int	rrr;
@@ -30,13 +30,13 @@ typedef struct s_best_bt
 	int	rb;
 	int	rrb;
 	int	count;
-}	t_best_bt;
+}	t_move_bt;
 
-typedef struct s_best_turk
+typedef struct s_move_turk
 {
 	char	*moves;
 	int		count;
-}	t_best_turk;
+}	t_move_turk;
 
 typedef struct s_stack
 {
@@ -49,8 +49,9 @@ t_dblist	*create_stack(char *split_args[]);
 int			*ft_atoi_edited(const char *nptr);
 int			error(void);
 int			exit_program(t_dblist **first);
-int			push(t_dblist **begin_src, t_dblist **begin_dest);
+int			push(t_stack *src, t_stack *dest);
 t_dblist	*reverse_rotate(t_dblist *begin);
 t_dblist	*rotate(t_dblist *begin);
+t_move_bt	*solve_bt(t_stack *a, t_stack *b);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 18:59:39 by cdeville          #+#    #+#             */
-/*   Updated: 2024/01/27 19:27:02 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/09 13:28:16 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ int	exit_program(t_dblist **begin)
 	if (*begin)
 		(*begin)->prev->next = NULL;
 	ft_free("%d", begin, &del_content);
-	exit (0);
+	return (0);
+	// exit (0);
 }

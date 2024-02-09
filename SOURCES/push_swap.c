@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:21:16 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/05 16:11:26 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/09 16:37:11 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ void	print_stack(t_dblist *begin)
 
 int	main(int argc, char *argv[])
 {
-	t_dblist	*begin;
+	t_stack		a;
+	t_stack		b;
 	char		**split_args;
 
 	if (argc < 2)
@@ -106,16 +107,32 @@ int	main(int argc, char *argv[])
 	split_args = merge_arg(argc - 1, &argv[1]);
 	if (split_args == NULL)
 		return (0);
-	if (find_duplicate(split_len(split_args), split_args) == TRUE)
+	a.size = split_len(split_args);
+	b.size = 0;
+	if (find_duplicate(a.size, split_args) == TRUE)
 	{
 		ft_free("%s", split_args);
 		return (error());
 	}
-	begin = create_stack(split_args);
-	if (begin == NULL)
+	a.begin = create_stack(split_args);
+	b.begin = NULL;
+	if (a.begin == NULL)
 		return (error());
 	// Testing create stack by displaying it
-	print_stack(begin);
-	exit_program(&begin);
+	ft_printf("A: size = %d\n", a.size);
+	print_stack(a.begin);
+	ft_printf("B: size = %d ==\n", b.size);
+	print_stack(a.begin);
+	solve_bt(&a, &b);
+	// while (a.size)
+	// {
+	// 	push(&a, &b);
+	// 	ft_printf("A: size = %d\n", a.size);
+	// 	print_stack(a.begin);
+	// 	ft_printf("B: size = %d\n", b.size);
+	// 	print_stack(b.begin);
+	// }
+	exit_program(&a.begin);
+	exit_program(&b.begin);
 	return (0);
 }
