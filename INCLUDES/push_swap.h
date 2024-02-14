@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:22:18 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/13 16:00:27 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/14 14:32:10 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void		do_rotate(t_stack *stack, int count);
 void		do_rrr(t_stack *a, t_stack *b, int count);
 void		do_rr(t_stack *a, t_stack *b, int count);
 void		init_move(t_move_bt **move);
+t_move_bt	get_best_move(t_stack *a, t_stack *b, int index_a, int index_b);
 
 
 #endif
