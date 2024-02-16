@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:41:24 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/14 14:53:46 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/16 19:17:48 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@ void	init_move(t_move_bt **move)
 		move[i]->rrb = 0;
 		move[i]->rr = 0;
 		move[i]->rrr = 0;
+		i++;
+	}
+}
+
+static void	init_index(int *index)
+{
+	int	i;
+
+	i = 0;
+	while (i < DEEPNESS)
+	{
+		index[i] = 0;
 		i++;
 	}
 }
@@ -51,65 +63,68 @@ static t_move_bt	*best_of(t_move_bt *best, t_move_bt *actual)
 		return (actual);
 }
 
-static void	init_index(int *index)
+int	target_b(int value, t_stack *b)
 {
-	int	i;
+	int			i;
+	t_dblist	*actual;
 
+	if (b->begin == NULL)
+		return (-1);
 	i = 0;
-	while (i < DEEPNESS)
+	actual = b->begin;
+	if (actual->content > value)
 	{
-		index[i] = 0;
-		i++;
-	}
-}
-
-int	target_b(t_stack *a, t_stack *b, int index_a)
-{
-	t_dblist	actual;
-	int			index;
-
-	index = 0;
-	if(a->size / 2 > index_a)
-	{
-		while (index != index_a)
+		while (actual->content > value)
 		{
-
+			actual = actual->next;
+			i++;
 		}
 	}
 	else
 	{
-
+		if (actual->prev->content < value)
+		{
+			i = b->size - 1;
+			actual = actual->prev;
+		}
+		while (actual->prev->content < value)
+		{
+			actual = actual->prev;
+			i--;
+		}
 	}
+	return (i);
 }
 
-static void	put_best_in(t_move_bt *solution, t_move_bt *best)
-{
-
-}
-
-t_move_bt	*get_best(t_stack *a, t_stack *b, int index, t_move_bt *actual, t_move_bt **best)
+t_move_bt	*get_best(t_stack *a, t_stack *b, int index, t_move_bt *actual, t_move_bt **solution)
 {
 	int			i;
 	int			j;
+	t_dblist	*element;
 
 	i = 0;
+	element = a->begin;
 	while (i < a->size - 1)
 	{
-		j = target_b(a, b, i);
-		actual[index] = get_best_move(a, b, i, j);
-		do_move(a, b, actual[index]);
+		j = target_b(*(int *)(element->content), b);
+		*actual = get_best_move(a, b, i, j);
+		do_move(a, b, *actual);
 		if (index == DEEPNESS - 1)
 		{
-			*best = best_of(*best, actual);
+			solution[index] = best_of(solution[index],
+					(actual - sizeof(t_move_bt) * (DEEPNESS - 1)));
 		}
 		else
 		{
-			get_best(a, b, index + 1, actual, best);
+			get_best(a, b, index + 1, actual + sizeof(t_move_bt), solution);
 		}
-		undo_move(a, b, actual[index]);
+		undo_move(a, b, *actual);
+		element = element->next;
 		i++;
+		if (element->next == a->begin)
+			break ;
 	}
-	return (*best);
+	return (solution);
 }
 
 t_move_bt	*solve_bt(t_stack *a, t_stack *b)
@@ -138,12 +153,12 @@ t_move_bt	*solve_bt(t_stack *a, t_stack *b)
 	}
 
 	// end
+
 	while (i < size)
 	{
-		put_best_in(&solution[i], get_best(a, b, 0, actual, &best));
-		do_move(a, b, *solution);
-		solution++;
-		i++;
+		get_best(a, b, i, actual, solution);
+		apply_it();
+		i += DEEPNESS;
 	}
-	return (solution - i);
+	return (solution);
 }

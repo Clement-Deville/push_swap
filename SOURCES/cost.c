@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 15:20:58 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/14 14:31:57 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/16 15:22:52 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ t_move_bt	get_best_move(t_stack *a, t_stack *b, int index_a, int index_b)
 {
 	t_move_bt	move[4];
 
-	index_b = target_b(a, b, index_a);
 	move[0] = get_ra_rb(a, b, index_a, index_b);
 	move[1]	= get_ra_rrb(a, b, index_a, index_b);
 	move[2]	= get_rra_rb(a, b, index_a, index_b);
