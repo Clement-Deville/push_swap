@@ -9,6 +9,7 @@ SRCS_FILES =		push_swap \
 					reverse_rotate	\
 					push	\
 					move	\
+					cost	\
 
 INCLUDES_FILES =	push_swap \
 

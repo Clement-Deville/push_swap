@@ -6,158 +6,196 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:41:24 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/16 19:17:48 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/17 18:42:10 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../INCLUDES/push_swap.h"
 
-void	init_move(t_move_bt **move)
+void	init_move(t_move_bt *move)
 {
-	int	i;
-
-	i = 0;
-	while (i < DEEPNESS)
-	{
-		move[i]->count = 0;
-		move[i]->ra = 0;
-		move[i]->rra = 0;
-		move[i]->rb = 0;
-		move[i]->rrb = 0;
-		move[i]->rr = 0;
-		move[i]->rrr = 0;
-		i++;
-	}
+	move->count = 0;
+	move->ra = 0;
+	move->rra = 0;
+	move->rb = 0;
+	move->rrb = 0;
+	move->rr = 0;
+	move->rrr = 0;
 }
 
-static void	init_index(int *index)
+static t_bool	is_empty(t_move_bt *solution)
 {
-	int	i;
-
-	i = 0;
-	while (i < DEEPNESS)
-	{
-		index[i] = 0;
-		i++;
-	}
+	if (solution->count == 0)
+		return (TRUE);
+	else
+		return (FALSE);
 }
 
-static t_move_bt	*best_of(t_move_bt *best, t_move_bt *actual)
+static void	keep_best_between(t_move_bt *solution, t_move_bt *actual)
 {
 	int	i;
-	int	count_best;
+	int	j;
+	int	count_solution;
 	int	count_actual;
 
 	i = 0;
-	count_best = 0;
+	count_solution = 0;
 	count_actual = 0;
 	while (i < DEEPNESS)
 	{
-		count_best += best->count;
-		count_actual += actual->count;
+		count_solution += solution[i].count;
+		count_actual += actual[i].count;
 		i++;
+		if (solution[i].count == END_FLAG)
+			break ;
 	}
-	if (count_best <= count_actual)
-		return (best);
-	else
-		return (actual);
+	if (count_solution > count_actual || is_empty(solution))
+	{
+		j = 0;
+		while (j < i)
+		{
+			solution[j] = actual[j];
+			j++;
+		}
+	}
 }
 
 int	target_b(int value, t_stack *b)
 {
 	int			i;
 	t_dblist	*actual;
+	int			min;
+	int			min_index;
+	int			max;
+	int			max_index;
 
 	if (b->begin == NULL)
 		return (-1);
+	if (b->size == 1)
+		return (0);
 	i = 0;
 	actual = b->begin;
-	if (actual->content > value)
+	if (*(int *)actual->content > value)
 	{
-		while (actual->content > value)
+		min = *(int *)actual->content;
+		min_index = i;
+		while (*(int *)actual->content > value)
 		{
+			if (*(int *)actual->content < min)
+			{
+				min = *(int *)actual->content;
+				min_index = i;
+			}
 			actual = actual->next;
 			i++;
+			if (actual == b->begin)
+				break ;
 		}
 	}
 	else
 	{
-		if (actual->prev->content < value)
+		max = *(int *)actual->content;
+		max_index = i;
+		if (*(int *)actual->prev->content < value)
 		{
 			i = b->size - 1;
 			actual = actual->prev;
 		}
-		while (actual->prev->content < value)
+		while (*(int *)actual->prev->content < value)
 		{
+			if (*(int *)actual->content > max)
+			{
+				max = *(int *)actual->content;
+				max_index = i;
+			}
 			actual = actual->prev;
 			i--;
+			if (actual == b->begin)
+				break ;
 		}
 	}
 	return (i);
 }
 
-t_move_bt	*get_best(t_stack *a, t_stack *b, int index, t_move_bt *actual, t_move_bt **solution)
+t_move_bt	*get_best(t_stack *a, t_stack *b, int index, t_move_bt *actual, t_move_bt *solution)
 {
-	int			i;
-	int			j;
-	t_dblist	*element;
+	int			index_a;
+	int			index_b;
+	t_dblist	*current;
 
-	i = 0;
-	element = a->begin;
-	while (i < a->size - 1)
+	index_a = 0;
+	current = a->begin;
+	while (index_a < a->size)
 	{
-		j = target_b(*(int *)(element->content), b);
-		*actual = get_best_move(a, b, i, j);
-		do_move(a, b, *actual);
+		index_b = target_b(*(int *)(current->content), b);
+		*actual = get_best_move(a, b, index_a, index_b);
+		// ft_printf("Before move is done:\n");
+		// print_stack(a->begin);
+		do_move(a, b, actual);
+		// ft_printf("After move is done:\n");
+		// print_stack(a->begin);
 		if (index == DEEPNESS - 1)
 		{
-			solution[index] = best_of(solution[index],
-					(actual - sizeof(t_move_bt) * (DEEPNESS - 1)));
+			keep_best_between(&solution[index], actual - (DEEPNESS - 1));
 		}
 		else
 		{
-			get_best(a, b, index + 1, actual + sizeof(t_move_bt), solution);
+			get_best(a, b, index + 1, actual + 1, solution);
 		}
-		undo_move(a, b, *actual);
-		element = element->next;
-		i++;
-		if (element->next == a->begin)
+		undo_move(a, b, actual);
+		// ft_printf("After move is undone:\n");
+		// print_stack(a->begin);
+		current = current->next;
+		index_a++;
+		if (current->next == a->begin)
 			break ;
 	}
 	return (solution);
 }
 
+void	init_solve(void *actual)
+{
+	int	i;
+
+	i = 0;
+	actual = (t_move_bt **)actual;
+	while (i < DEEPNESS)
+	{
+		init_move(&actual[i]);
+		i++;
+	}
+}
+
+void	apply_it(t_stack *a, t_stack *b, t_move_bt *solution)
+{
+	int	i;
+
+	i = 0;
+	while (i < DEEPNESS && a->size > 0)
+	{
+		do_move(a, b, &solution[i]);
+		i++;
+	}
+}
 t_move_bt	*solve_bt(t_stack *a, t_stack *b)
 {
 	t_move_bt	*solution;
 	int			i;
 	int			size;
 	t_move_bt	actual[DEEPNESS];
-	t_move_bt	best[DEEPNESS];
 
 	i = 0;
+	push(a, b);
 	size = a->size;
 	solution = (t_move_bt *)ft_calloc((a->size + 1), sizeof(t_move_bt));
 	if (solution == NULL)
 		return (NULL);
-	// actual and best
-
-	int j;
-
-	j = 0;
-	while (j < DEEPNESS - 1)
-	{
-		init_move(&actual[j]);
-		init_move(&best[j]);
-		j++;
-	}
-
-	// end
-
+	solution[a->size + 1].count = END_FLAG;
+	init_solve(&actual);
 	while (i < size)
 	{
-		get_best(a, b, i, actual, solution);
-		apply_it();
+		get_best(a, b, 0, actual, &solution[i]);
+		apply_it(a, b, &solution[i]);
 		i += DEEPNESS;
 	}
 	return (solution);

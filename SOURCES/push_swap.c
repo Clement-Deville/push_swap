@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:21:16 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/13 13:34:20 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/17 18:23:03 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	get_color(int value)
 		return (value + 92);
 }
 
-int	split_len(char **split)
+int	count_elements_of(char **split)
 {
 	int	i;
 
@@ -108,7 +108,7 @@ int	main(int argc, char *argv[])
 	split_args = merge_arg(argc - 1, &argv[1]);
 	if (split_args == NULL)
 		return (0);
-	a.size = split_len(split_args);
+	a.size = count_elements_of(split_args);
 	b.size = 0;
 	if (find_duplicate(a.size, split_args) == TRUE)
 	{
@@ -124,7 +124,9 @@ int	main(int argc, char *argv[])
 	print_stack(a.begin);
 	ft_printf("B: size = %d ==\n", b.size);
 	print_stack(b.begin);
+	// (void)solution;
 	solution = solve_bt(&a, &b);
+	free(solution);
 	ft_printf("A: size = %d\n", a.size);
 	print_stack(a.begin);
 	ft_printf("B: size = %d ==\n", b.size);
@@ -137,7 +139,6 @@ int	main(int argc, char *argv[])
 	// 	ft_printf("B: size = %d\n", b.size);
 	// 	print_stack(b.begin);
 	// }
-	free(solution);
 	exit_program(&a.begin);
 	exit_program(&b.begin);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:22:18 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/14 14:32:10 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/17 17:01:31 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 
 //
 
-# define DEEPNESS 3
+# define DEEPNESS 1
+# define END_FLAG -1
 
 typedef struct s_move_bt
 {
@@ -52,16 +53,17 @@ int			*ft_atoi_edited(const char *nptr);
 int			error(void);
 int			exit_program(t_dblist **first);
 int			push(t_stack *src, t_stack *dest);
-t_dblist	*reverse_rotate(t_dblist *begin);
-t_dblist	*rotate(t_dblist *begin);
+void		reverse_rotate(t_stack *stack);
+void		rotate(t_stack *stack);
 t_move_bt	*solve_bt(t_stack *a, t_stack *b);
 void		do_reverse_rotate(t_stack *stack, int count);
-void		do_move(t_stack *a, t_stack *b, t_move_bt move);
+void		do_move(t_stack *a, t_stack *b, t_move_bt *move);
 void		do_rotate(t_stack *stack, int count);
 void		do_rrr(t_stack *a, t_stack *b, int count);
 void		do_rr(t_stack *a, t_stack *b, int count);
-void		init_move(t_move_bt **move);
+void		undo_move(t_stack *a, t_stack *b, t_move_bt *move);
+void		init_move(t_move_bt *move);
 t_move_bt	get_best_move(t_stack *a, t_stack *b, int index_a, int index_b);
-
+void		print_stack(t_dblist *begin);
 
 #endif

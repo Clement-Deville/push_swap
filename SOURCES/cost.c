@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 15:20:58 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/16 15:22:52 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/17 19:02:15 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ t_move_bt	best_of(t_move_bt *move)
 			best = i;
 		i++;
 	}
-	return (move[i]);
+	return (move[best]);
 }
 
-t_move_bt	get_ra_rb(t_stack *a, t_stack *b, int index_a, int index_b)
+t_move_bt	get_ra_rb(int index_a, int index_b)
 {
 	t_move_bt	ra_rb;
 
@@ -48,7 +48,7 @@ t_move_bt	get_ra_rb(t_stack *a, t_stack *b, int index_a, int index_b)
 	return (ra_rb);
 }
 
-t_move_bt	get_ra_rrb(t_stack *a, t_stack *b, int index_a, int index_b)
+t_move_bt	get_ra_rrb(t_stack *b, int index_a, int index_b)
 {
 	t_move_bt	ra_rrb;
 
@@ -59,12 +59,12 @@ t_move_bt	get_ra_rrb(t_stack *a, t_stack *b, int index_a, int index_b)
 	return (ra_rrb);
 }
 
-t_move_bt	get_rra_rb(t_stack *a, t_stack *b, int index_a, int index_b)
+t_move_bt	get_rra_rb(t_stack *a, int index_a, int index_b)
 {
 	t_move_bt	rra_rb;
 
 	init_move(&rra_rb);
-	rra_rb.count = (a->size - 1) - index_a + index_b - 1;
+	rra_rb.count = (a->size - 1) - index_a + index_b + 1;
 	rra_rb.rra = (a->size - 1) - index_a + 1;
 	rra_rb.rb = index_b;
 	return (rra_rb);
@@ -94,9 +94,9 @@ t_move_bt	get_best_move(t_stack *a, t_stack *b, int index_a, int index_b)
 {
 	t_move_bt	move[4];
 
-	move[0] = get_ra_rb(a, b, index_a, index_b);
-	move[1]	= get_ra_rrb(a, b, index_a, index_b);
-	move[2]	= get_rra_rb(a, b, index_a, index_b);
-	move[4]	= get_rra_rrb(a, b, index_a, index_b);
+	move[0] = get_ra_rb(index_a, index_b);
+	move[1]	= get_ra_rrb(b, index_a, index_b);
+	move[2]	= get_rra_rb(a, index_a, index_b);
+	move[3]	= get_rra_rrb(a, b, index_a, index_b);
 	return (best_of(move));
 }
