@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:21:16 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/17 18:23:03 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/19 19:48:52 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,36 @@ t_bool	find_duplicate(int argc, char *argv[])
 	return (FALSE);
 }
 
+void	print_move(int count, char *key)
+{
+	int	i;
+
+	i = 0;
+	while (i < count)
+	{
+		ft_printf("%s\n", key);
+		i++;
+	}
+}
+
+void	print_solution(t_move_bt *solution)
+{
+	int	i;
+
+	i = 0;
+	while (solution->count != -1)
+	{
+		print_move(solution->rr, "rr");
+		print_move(solution->rrr, "rrr");
+		print_move(solution->ra, "ra");
+		print_move(solution->rra, "rra");
+		print_move(solution->rb, "rb");
+		print_move(solution->rrb, "rrb");
+		print_move(1, "pa");
+		solution++;
+	}
+}
+
 void	print_stack(t_dblist *begin)
 {
 	t_dblist	*actual;
@@ -126,6 +156,9 @@ int	main(int argc, char *argv[])
 	print_stack(b.begin);
 	// (void)solution;
 	solution = solve_bt(&a, &b);
+	ft_printf("\nSOLUTION: \n\n");
+	print_solution(solution);
+	ft_printf("\n");
 	free(solution);
 	ft_printf("A: size = %d\n", a.size);
 	print_stack(a.begin);

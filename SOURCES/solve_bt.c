@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:41:24 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/17 18:42:10 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/19 19:42:22 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,6 @@ int	target_b(int value, t_stack *b)
 {
 	int			i;
 	t_dblist	*actual;
-	int			min;
-	int			min_index;
-	int			max;
-	int			max_index;
 
 	if (b->begin == NULL)
 		return (-1);
@@ -77,25 +73,18 @@ int	target_b(int value, t_stack *b)
 	actual = b->begin;
 	if (*(int *)actual->content > value)
 	{
-		min = *(int *)actual->content;
-		min_index = i;
 		while (*(int *)actual->content > value)
 		{
-			if (*(int *)actual->content < min)
-			{
-				min = *(int *)actual->content;
-				min_index = i;
-			}
 			actual = actual->next;
 			i++;
 			if (actual == b->begin)
+				break ;
+			if (*(int *)actual->next->content < *(int *)actual->content)
 				break ;
 		}
 	}
 	else
 	{
-		max = *(int *)actual->content;
-		max_index = i;
 		if (*(int *)actual->prev->content < value)
 		{
 			i = b->size - 1;
@@ -103,14 +92,11 @@ int	target_b(int value, t_stack *b)
 		}
 		while (*(int *)actual->prev->content < value)
 		{
-			if (*(int *)actual->content > max)
-			{
-				max = *(int *)actual->content;
-				max_index = i;
-			}
 			actual = actual->prev;
 			i--;
 			if (actual == b->begin)
+				break ;
+			if (*(int *)actual->prev->content > *(int *)actual->content)
 				break ;
 		}
 	}
@@ -128,6 +114,7 @@ t_move_bt	*get_best(t_stack *a, t_stack *b, int index, t_move_bt *actual, t_move
 	while (index_a < a->size)
 	{
 		index_b = target_b(*(int *)(current->content), b);
+		ft_printf("\n\033[0;32m == Move at index_a = %d\n == Target_b is %d = \n == Stack A size is %d = \n\n\033[0m", index_a, index_b, a->size);
 		*actual = get_best_move(a, b, index_a, index_b);
 		// ft_printf("Before move is done:\n");
 		// print_stack(a->begin);
@@ -147,7 +134,7 @@ t_move_bt	*get_best(t_stack *a, t_stack *b, int index, t_move_bt *actual, t_move
 		// print_stack(a->begin);
 		current = current->next;
 		index_a++;
-		if (current->next == a->begin)
+		if (current == a->begin)
 			break ;
 	}
 	return (solution);
@@ -190,10 +177,17 @@ t_move_bt	*solve_bt(t_stack *a, t_stack *b)
 	solution = (t_move_bt *)ft_calloc((a->size + 1), sizeof(t_move_bt));
 	if (solution == NULL)
 		return (NULL);
-	solution[a->size + 1].count = END_FLAG;
+	solution[a->size].count = END_FLAG;
 	init_solve(&actual);
 	while (i < size)
 	{
+		ft_printf("\033[0;31m===>Step: %d\n\n\033[0m", i);
+		ft_printf("\nStack A: \n\n");
+		print_stack(a->begin);
+		ft_printf("\n");
+		ft_printf("Stack B: \n\n");
+		print_stack(b->begin);
+		ft_printf("\n");
 		get_best(a, b, 0, actual, &solution[i]);
 		apply_it(a, b, &solution[i]);
 		i += DEEPNESS;
