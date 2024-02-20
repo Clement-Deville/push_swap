@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:05:12 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/19 19:52:55 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/20 11:06:42 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	rotate(t_stack *stack)
 {
-	stack->begin = stack->begin->prev;
+	stack->begin = stack->begin->next;
 }

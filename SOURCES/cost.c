@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 15:20:58 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/19 16:03:50 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:23:58 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_move_bt	get_rra_rrb(t_stack *a, t_stack *b, int index_a, int index_b)
 	t_move_bt	rra_rrb;
 
 	init_move(&rra_rrb);
-	if (index_a >= index_b)
+	if (a->size - index_a <= b->size - index_b)
 	{
 		rra_rrb.count = (b->size - 1) - index_b + 2;
 		rra_rrb.rrr = (a->size - 1) - index_a + 1;

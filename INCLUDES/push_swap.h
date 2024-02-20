@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:22:18 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/19 15:54:11 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:53:16 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ void		init_move(t_move_bt *move);
 t_move_bt	get_best_move(t_stack *a, t_stack *b, int index_a, int index_b);
 void		print_stack(t_dblist *begin);
 void		print_move(int count, char *key);
+void		push_back(t_stack *a, t_stack *b);
 
 #endif

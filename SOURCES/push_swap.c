@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:21:16 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/19 19:48:52 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:33:28 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	print_solution(t_move_bt *solution)
 	i = 0;
 	while (solution->count != -1)
 	{
+		ft_printf("\e[0;33m\n => Step %d\n\n\e[0m", i);
 		print_move(solution->rr, "rr");
 		print_move(solution->rrr, "rrr");
 		print_move(solution->ra, "ra");
@@ -96,6 +97,7 @@ void	print_solution(t_move_bt *solution)
 		print_move(solution->rrb, "rrb");
 		print_move(1, "pa");
 		solution++;
+		i++;
 	}
 }
 
@@ -118,7 +120,7 @@ void	print_stack(t_dblist *begin)
 		// 	ft_printf("\e[48;5;%im \e[0m|", *(int *)(actual->content) % 215 + 16);
 		// 	i++;
 		// }
-		ft_printf("\e[0m%d\n", *(int *)(actual->content));
+		ft_printf("%d\n", *(int *)(actual->content));
 		actual = actual->next;
 		if (actual == begin)
 			break ;
@@ -160,10 +162,12 @@ int	main(int argc, char *argv[])
 	print_solution(solution);
 	ft_printf("\n");
 	free(solution);
+	push_back(&a, &b);
 	ft_printf("A: size = %d\n", a.size);
 	print_stack(a.begin);
 	ft_printf("B: size = %d ==\n", b.size);
 	print_stack(b.begin);
+
 	// while (a.size)
 	// {
 	// 	push(&a, &b);

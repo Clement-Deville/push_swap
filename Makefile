@@ -10,6 +10,7 @@ SRCS_FILES =		push_swap \
 					push	\
 					move	\
 					cost	\
+					push_back	\
 
 INCLUDES_FILES =	push_swap \
 

@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:41:24 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/19 19:42:22 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:23:58 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,44 +60,126 @@ static void	keep_best_between(t_move_bt *solution, t_move_bt *actual)
 	}
 }
 
+// int	target_b(int value, t_stack *b)
+// {
+// 	int			i;
+// 	t_dblist	*actual;
+
+// 	if (b->begin == NULL)
+// 		return (-1);
+// 	if (b->size == 1)
+// 		return (0);
+// 	i = 0;
+// 	actual = b->begin;
+// 	if (*(int *)actual->content > value)
+// 	{
+// 		if (*(int *)actual->prev->content < *(int *)actual->content
+// 			&& *(int *)actual->prev->content > value)
+// 			return (0);
+// 		while (*(int *)actual->content > value)
+// 		{
+// 			actual = actual->next;
+// 			i++;
+// 			if (*(int *)actual->prev->content < *(int *)actual->content)
+// 				break ;
+// 			if (actual->next == b->begin)
+// 				break ;
+// 		}
+// 	}
+// 	else
+// 	{
+// 		if (*(int *)actual->content < value)
+// 		{
+// 			if (*(int *)actual->prev->content < *(int *)actual->content)
+// 				return (0);
+// 			if (*(int *)actual->prev->content > value)
+// 				return (0);
+// 			i = b->size - 1;
+// 			actual = actual->prev;
+// 		}
+// 		while (*(int *)actual->content < value)
+// 		{
+// 			if (*(int *)actual->prev->content < *(int *)actual->content)
+// 				break ;
+// 			if (actual->prev == b->begin)
+// 				break ;
+// 			actual = actual->prev;
+// 			i--;
+// 		}
+// 	}
+// 	return (i);
+// }
+
+static t_bool	value_is_bigger(int value, t_dblist *actual)
+{
+	if (value > *(int *)actual->content)
+		return (TRUE);
+	return (FALSE);
+}
+
+static t_bool	value_is_smaller(int value, t_dblist *actual)
+{
+	if (value < *(int *)actual->content)
+		return (TRUE);
+	return (FALSE);
+}
+
+static	int	prev_value(t_dblist *actual)
+{
+	return (*(int *)actual->prev->content);
+}
+
+// static	int	next_value(t_dblist *actual)
+// {
+// 	return (*(int *)actual->next->content);
+// }
+
+static	int	actual_value(t_dblist *actual)
+{
+	return (*(int *)actual->content);
+}
+
 int	target_b(int value, t_stack *b)
 {
 	int			i;
 	t_dblist	*actual;
 
-	if (b->begin == NULL)
-		return (-1);
-	if (b->size == 1)
-		return (0);
 	i = 0;
 	actual = b->begin;
-	if (*(int *)actual->content > value)
+	if (value_is_smaller(value, actual))
 	{
-		while (*(int *)actual->content > value)
+		if (prev_value(actual) < actual_value(actual)
+			&& value_is_smaller(value, actual->prev))
+			return (0);
+		while (value_is_smaller(value, actual))
 		{
 			actual = actual->next;
 			i++;
-			if (actual == b->begin)
+			if (prev_value(actual) < actual_value(actual))
 				break ;
-			if (*(int *)actual->next->content < *(int *)actual->content)
+			if (actual == b->begin)
 				break ;
 		}
 	}
 	else
 	{
-		if (*(int *)actual->prev->content < value)
+		if (value_is_bigger(value, actual))
 		{
+			if (actual_value(actual) > prev_value(actual))
+				return (0);
+			if (value_is_smaller(value, actual->prev))
+				return (0);
 			i = b->size - 1;
 			actual = actual->prev;
 		}
-		while (*(int *)actual->prev->content < value)
+		while (value_is_bigger(value, actual->prev))
 		{
-			actual = actual->prev;
-			i--;
+			if (prev_value(actual) < actual_value(actual))
+				break ;
 			if (actual == b->begin)
 				break ;
-			if (*(int *)actual->prev->content > *(int *)actual->content)
-				break ;
+			actual = actual->prev;
+			i--;
 		}
 	}
 	return (i);
@@ -164,6 +246,7 @@ void	apply_it(t_stack *a, t_stack *b, t_move_bt *solution)
 		i++;
 	}
 }
+
 t_move_bt	*solve_bt(t_stack *a, t_stack *b)
 {
 	t_move_bt	*solution;
@@ -182,12 +265,12 @@ t_move_bt	*solve_bt(t_stack *a, t_stack *b)
 	while (i < size)
 	{
 		ft_printf("\033[0;31m===>Step: %d\n\n\033[0m", i);
-		ft_printf("\nStack A: \n\n");
+		ft_printf("\n\e[0;35mStack A: \n\n");
 		print_stack(a->begin);
 		ft_printf("\n");
 		ft_printf("Stack B: \n\n");
 		print_stack(b->begin);
-		ft_printf("\n");
+		ft_printf("\n\033[0m");
 		get_best(a, b, 0, actual, &solution[i]);
 		apply_it(a, b, &solution[i]);
 		i += DEEPNESS;
