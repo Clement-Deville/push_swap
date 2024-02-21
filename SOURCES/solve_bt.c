@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:41:24 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/20 17:23:58 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/21 14:31:00 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_bool	is_empty(t_move_bt *solution)
 		return (FALSE);
 }
 
-static void	keep_best_between(t_move_bt *solution, t_move_bt *actual)
+static void	keep_best_between(t_move_bt *solution, t_move_bt *actual, int index)
 {
 	int	i;
 	int	j;
@@ -41,7 +41,7 @@ static void	keep_best_between(t_move_bt *solution, t_move_bt *actual)
 	i = 0;
 	count_solution = 0;
 	count_actual = 0;
-	while (i < DEEPNESS)
+	while (i < index + 1)
 	{
 		count_solution += solution[i].count;
 		count_actual += actual[i].count;
@@ -196,24 +196,18 @@ t_move_bt	*get_best(t_stack *a, t_stack *b, int index, t_move_bt *actual, t_move
 	while (index_a < a->size)
 	{
 		index_b = target_b(*(int *)(current->content), b);
-		ft_printf("\n\033[0;32m == Move at index_a = %d\n == Target_b is %d = \n == Stack A size is %d = \n\n\033[0m", index_a, index_b, a->size);
+		// ft_printf("\n\033[0;32m == Move at index_a = %d\n == Target_b is %d = \n == Stack A size is %d = \n\n\033[0m", index_a, index_b, a->size);
 		*actual = get_best_move(a, b, index_a, index_b);
-		// ft_printf("Before move is done:\n");
-		// print_stack(a->begin);
 		do_move(a, b, actual);
-		// ft_printf("After move is done:\n");
-		// print_stack(a->begin);
-		if (index == DEEPNESS - 1)
+		if (index == DEEPNESS - 1 || a->size == 0)
 		{
-			keep_best_between(&solution[index], actual - (DEEPNESS - 1));
+			keep_best_between(solution, actual - index, index);
 		}
 		else
 		{
 			get_best(a, b, index + 1, actual + 1, solution);
 		}
 		undo_move(a, b, actual);
-		// ft_printf("After move is undone:\n");
-		// print_stack(a->begin);
 		current = current->next;
 		index_a++;
 		if (current == a->begin)
@@ -256,21 +250,22 @@ t_move_bt	*solve_bt(t_stack *a, t_stack *b)
 
 	i = 0;
 	push(a, b);
+	print_move(1, "pb");
 	size = a->size;
 	solution = (t_move_bt *)ft_calloc((a->size + 1), sizeof(t_move_bt));
 	if (solution == NULL)
 		return (NULL);
 	solution[a->size].count = END_FLAG;
 	init_solve(&actual);
-	while (i < size)
+	while (i < size - 1)
 	{
-		ft_printf("\033[0;31m===>Step: %d\n\n\033[0m", i);
-		ft_printf("\n\e[0;35mStack A: \n\n");
-		print_stack(a->begin);
-		ft_printf("\n");
-		ft_printf("Stack B: \n\n");
-		print_stack(b->begin);
-		ft_printf("\n\033[0m");
+		// ft_printf("\033[0;31m===>Step: %d\n\n\033[0m", i);
+		// ft_printf("\n\e[0;35mStack A: \n\n");
+		// print_stack(a->begin);
+		// ft_printf("\n");
+		// ft_printf("Stack B: \n\n");
+		// print_stack(b->begin);
+		// ft_printf("\n\033[0m");
 		get_best(a, b, 0, actual, &solution[i]);
 		apply_it(a, b, &solution[i]);
 		i += DEEPNESS;

@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:21:16 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/20 17:33:28 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/21 14:30:52 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,14 @@ void	print_solution(t_move_bt *solution)
 	i = 0;
 	while (solution->count != -1)
 	{
-		ft_printf("\e[0;33m\n => Step %d\n\n\e[0m", i);
+		// ft_printf("\e[0;33m\n => Step %d\n\n\e[0m", i);
 		print_move(solution->rr, "rr");
 		print_move(solution->rrr, "rrr");
 		print_move(solution->ra, "ra");
 		print_move(solution->rra, "rra");
 		print_move(solution->rb, "rb");
 		print_move(solution->rrb, "rrb");
-		print_move(1, "pa");
+		print_move(1, "pb");
 		solution++;
 		i++;
 	}
@@ -152,21 +152,21 @@ int	main(int argc, char *argv[])
 	if (a.begin == NULL)
 		return (error());
 	// Testing create stack by displaying it
-	ft_printf("A: size = %d\n", a.size);
-	print_stack(a.begin);
-	ft_printf("B: size = %d ==\n", b.size);
-	print_stack(b.begin);
+	// ft_printf("A: size = %d\n", a.size);
+	// print_stack(a.begin);
+	// ft_printf("B: size = %d ==\n", b.size);
+	// print_stack(b.begin);
 	// (void)solution;
 	solution = solve_bt(&a, &b);
-	ft_printf("\nSOLUTION: \n\n");
+	// ft_printf("\nSOLUTION: \n\n");
 	print_solution(solution);
-	ft_printf("\n");
+	// ft_printf("\n");
 	free(solution);
 	push_back(&a, &b);
-	ft_printf("A: size = %d\n", a.size);
-	print_stack(a.begin);
-	ft_printf("B: size = %d ==\n", b.size);
-	print_stack(b.begin);
+	// ft_printf("A: size = %d\n", a.size);
+	// print_stack(a.begin);
+	// ft_printf("B: size = %d ==\n", b.size);
+	// print_stack(b.begin);
 
 	// while (a.size)
 	// {

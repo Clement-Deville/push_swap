@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:32:15 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/20 18:22:52 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/21 10:25:26 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	get_bigest(t_stack *b)
 		actual = actual->next;
 		i++;
 	}
-	return (i);
+	return (index_bigest);
 }
 
 void	push_back(t_stack *a, t_stack *b)
@@ -66,8 +66,8 @@ void	push_back(t_stack *a, t_stack *b)
 	}
 	else
 	{
-		bigest_on_top.rrb = b->size - index_bigest + 2;
-		bigest_on_top.count = b->size - index_bigest + 2;
+		bigest_on_top.rrb = b->size - index_bigest;
+		bigest_on_top.count = b->size - index_bigest;
 		print_move(bigest_on_top.count, "rrb");
 	}
 	do_move(a, b, &bigest_on_top);

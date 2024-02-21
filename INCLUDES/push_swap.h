@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:22:18 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/20 17:53:16 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/21 14:52:54 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 //
 
-# define DEEPNESS 1
+# define DEEPNESS 2
 # define END_FLAG -1
 
 typedef struct s_move_bt
