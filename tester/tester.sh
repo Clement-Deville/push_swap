@@ -8,6 +8,7 @@ GREEN='\033[0;32m'
 
 #endif
 
+
 if [ $# -gt 0 ];
 then
 	iteration=$1
@@ -36,6 +37,7 @@ do
 	if [ "$check" = "KO" ];
 	then
 		echo -e "${RED}!!!!!!!     This test has the wrong solution: $i     !!!!!!!${NC}"
+		echo $ARG > trace.txt
 		exit
 	fi
 	if [ "$check" = "error" ];

@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:41:24 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/21 14:31:00 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:48:27 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,16 +198,16 @@ t_move_bt	*get_best(t_stack *a, t_stack *b, int index, t_move_bt *actual, t_move
 		index_b = target_b(*(int *)(current->content), b);
 		// ft_printf("\n\033[0;32m == Move at index_a = %d\n == Target_b is %d = \n == Stack A size is %d = \n\n\033[0m", index_a, index_b, a->size);
 		*actual = get_best_move(a, b, index_a, index_b);
-		do_move(a, b, actual);
-		if (index == DEEPNESS - 1 || a->size == 0)
+		if (index == DEEPNESS - 1 || a->size == 1)
 		{
 			keep_best_between(solution, actual - index, index);
 		}
 		else
 		{
+			do_move(a, b, actual);
 			get_best(a, b, index + 1, actual + 1, solution);
+			undo_move(a, b, actual);
 		}
-		undo_move(a, b, actual);
 		current = current->next;
 		index_a++;
 		if (current == a->begin)
@@ -257,7 +257,7 @@ t_move_bt	*solve_bt(t_stack *a, t_stack *b)
 		return (NULL);
 	solution[a->size].count = END_FLAG;
 	init_solve(&actual);
-	while (i < size - 1)
+	while (i < size)
 	{
 		// ft_printf("\033[0;31m===>Step: %d\n\n\033[0m", i);
 		// ft_printf("\n\e[0;35mStack A: \n\n");

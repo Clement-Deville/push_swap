@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:21:16 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/21 14:30:52 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:48:43 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ int	main(int argc, char *argv[])
 	print_solution(solution);
 	// ft_printf("\n");
 	free(solution);
-	push_back(&a, &b);
+	// push_back(&a, &b);
 	// ft_printf("A: size = %d\n", a.size);
 	// print_stack(a.begin);
 	// ft_printf("B: size = %d ==\n", b.size);

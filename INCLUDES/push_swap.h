@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:22:18 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/21 14:52:54 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/21 18:09:14 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 //
 
-# define DEEPNESS 2
+# define DEEPNESS 3
 # define END_FLAG -1
 
 typedef struct s_move_bt
@@ -46,7 +46,6 @@ typedef struct s_stack
 	int			size;
 	t_dblist	*begin;
 }	t_stack;
-
 
 t_dblist	*create_stack(char *split_args[]);
 int			*ft_atoi_edited(const char *nptr);

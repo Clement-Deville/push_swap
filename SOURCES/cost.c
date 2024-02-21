@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 15:20:58 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/21 14:26:04 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:48:33 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ t_move_bt	get_rra_rrb(t_stack *a, t_stack *b, int index_a, int index_b)
 	return (rra_rrb);
 }
 
-t_move_bt	get_best_move(t_stack *a, t_stack *b, int index_a, int index_b)
+t_move_bt	                                                                                                                                                                                                                     get_best_move(t_stack *a, t_stack *b, int index_a, int index_b)
 {
 	t_move_bt	move[4];
 
