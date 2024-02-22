@@ -6,38 +6,38 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 15:20:58 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/21 17:48:33 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/22 18:07:23 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../INCLUDES/push_swap.h"
 
-void	print_moves(t_move_bt *solution)
-{
-	int	i;
+// void	print_moves(t_move_bt *solution)
+// {
+// 	int	i;
 
-	i = 0;
-	while (i < 4)
-	{
-		if (i == 0)
-			ft_printf("=== FOR ra_rb ==\n\n");
-		if (i == 1)
-			ft_printf("=== FOR ra_rrb ==\n\n");
-		if (i == 2)
-			ft_printf("=== FOR rra_rb ==\n\n");
-		if (i == 3)
-			ft_printf("=== FOR rra_rrb == \n\n");
-		print_move(solution->rr, "rr");
-		print_move(solution->rrr, "rrr");
-		print_move(solution->ra, "ra");
-		print_move(solution->rra, "rra");
-		print_move(solution->rb, "rb");
-		print_move(solution->rrb, "rrb");
-		print_move(1, "pa");
-		solution++;
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (i < 4)
+// 	{
+// 		if (i == 0)
+// 			ft_printf("=== FOR ra_rb ==\n\n");
+// 		if (i == 1)
+// 			ft_printf("=== FOR ra_rrb ==\n\n");
+// 		if (i == 2)
+// 			ft_printf("=== FOR rra_rb ==\n\n");
+// 		if (i == 3)
+// 			ft_printf("=== FOR rra_rrb == \n\n");
+// 		print_move(solution->rr, "rr");
+// 		print_move(solution->rrr, "rrr");
+// 		print_move(solution->ra, "ra");
+// 		print_move(solution->rra, "rra");
+// 		print_move(solution->rb, "rb");
+// 		print_move(solution->rrb, "rrb");
+// 		print_move(1, "pa");
+// 		solution++;
+// 		i++;
+// 	}
+// }
 
 t_move_bt	best_of(t_move_bt *move)
 {

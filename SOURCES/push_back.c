@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:32:15 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/21 10:25:26 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/22 14:06:02 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	get_bigest(t_stack *b)
 	actual = b->begin;
 	index_bigest = 0;
 	biggest = actual_value(actual);
-	while (actual->next != b->begin)
+	while (1)
 	{
 		if (actual_value(actual) > biggest)
 		{
@@ -47,6 +47,8 @@ int	get_bigest(t_stack *b)
 		}
 		actual = actual->next;
 		i++;
+		if (actual == b->begin)
+			break ;
 	}
 	return (index_bigest);
 }
@@ -62,13 +64,13 @@ void	push_back(t_stack *a, t_stack *b)
 	{
 		bigest_on_top.rb = index_bigest;
 		bigest_on_top.count = index_bigest;
-		print_move(bigest_on_top.count, "rb");
+		print_move(bigest_on_top.rb, "rb");
 	}
 	else
 	{
 		bigest_on_top.rrb = b->size - index_bigest;
 		bigest_on_top.count = b->size - index_bigest;
-		print_move(bigest_on_top.count, "rrb");
+		print_move(bigest_on_top.rrb, "rrb");
 	}
 	do_move(a, b, &bigest_on_top);
 	while (b->size >= 1)

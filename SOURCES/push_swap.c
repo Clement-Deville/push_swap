@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:21:16 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/21 17:48:43 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/22 18:46:14 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,14 @@ void	print_move(int count, char *key)
 void	print_solution(t_move_bt *solution)
 {
 	int	i;
+	int	j;
+	int	total;
 
+	total = 0;
 	i = 0;
 	while (solution->count != -1)
 	{
+		j = 0;
 		// ft_printf("\e[0;33m\n => Step %d\n\n\e[0m", i);
 		print_move(solution->rr, "rr");
 		print_move(solution->rrr, "rrr");
@@ -96,9 +100,21 @@ void	print_solution(t_move_bt *solution)
 		print_move(solution->rb, "rb");
 		print_move(solution->rrb, "rrb");
 		print_move(1, "pb");
+		// if ((i + 1) % DEEPNESS == 0)
+		// 	ft_printf("\e[0;33m");
+		// else
+		// 	ft_printf("\e[0m");
+		// ft_printf("\n%d ", solution->count);
+		// while (j < solution->count)
+		// {
+		// 	ft_printf("+");
+		// 	j++;
+		// }
+		// total += solution->count;
 		solution++;
 		i++;
 	}
+	// ft_printf("TOTAL = %d\n", total);
 }
 
 void	print_stack(t_dblist *begin)
@@ -160,22 +176,13 @@ int	main(int argc, char *argv[])
 	solution = solve_bt(&a, &b);
 	// ft_printf("\nSOLUTION: \n\n");
 	print_solution(solution);
+	push_back(&a, &b);
 	// ft_printf("\n");
-	free(solution);
-	// push_back(&a, &b);
 	// ft_printf("A: size = %d\n", a.size);
 	// print_stack(a.begin);
 	// ft_printf("B: size = %d ==\n", b.size);
 	// print_stack(b.begin);
-
-	// while (a.size)
-	// {
-	// 	push(&a, &b);
-	// 	ft_printf("A: size = %d\n", a.size);
-	// 	print_stack(a.begin);
-	// 	ft_printf("B: size = %d\n", b.size);
-	// 	print_stack(b.begin);
-	// }
+	free(solution);
 	exit_program(&a.begin);
 	exit_program(&b.begin);
 	return (0);

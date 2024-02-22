@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:41:24 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/21 17:48:27 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/22 18:19:23 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,54 @@ static t_bool	is_empty(t_move_bt *solution)
 		return (FALSE);
 }
 
+void	print_full(t_move_bt move)
+{
+	ft_printf("\nCount is: %d\n\n", move.count);
+	print_move(move.rr, "rr");
+	print_move(move.rrr, "rrr");
+	print_move(move.ra, "ra");
+	print_move(move.rra, "rra");
+	print_move(move.rb, "rb");
+	print_move(move.rrb, "rrb");
+	print_move(1, "pb");
+}
+
+void	print_before(t_move_bt *solution, t_move_bt *actual, int index)
+{
+	int	i;
+
+	i = 0;
+	ft_printf("\e[0;33m\nBEFORE !\n\n");
+	while (i < index + 1)
+	{
+		if (solution[i].count == END_FLAG)
+			break ;
+		ft_printf("\nDEEPNESS = %d\n\n", i);
+		ft_printf("SOLUTION:  \n");
+		print_full(solution[i]);
+		ft_printf("\nACTUAL:  \n");
+		print_full(actual[i]);
+		i++;
+	}
+}
+
+void	print_after(t_move_bt *solution, int index)
+{
+	int	i;
+
+	i = 0;
+	ft_printf("\e[0;31m\nAFTER !\n\n");
+	while (i < index + 1)
+	{
+		if (solution[i].count == END_FLAG)
+			break ;
+		ft_printf("\nDEEPNESS = %d\n\n", i);
+		ft_printf("SOLUTION:  \n");
+		print_full(solution[i]);
+		i++;
+	}
+}
+
 static void	keep_best_between(t_move_bt *solution, t_move_bt *actual, int index)
 {
 	int	i;
@@ -41,13 +89,15 @@ static void	keep_best_between(t_move_bt *solution, t_move_bt *actual, int index)
 	i = 0;
 	count_solution = 0;
 	count_actual = 0;
+
+	// print_before(solution, actual, index);
 	while (i < index + 1)
 	{
+		if (solution[i].count == END_FLAG)
+			break ;
 		count_solution += solution[i].count;
 		count_actual += actual[i].count;
 		i++;
-		if (solution[i].count == END_FLAG)
-			break ;
 	}
 	if (count_solution > count_actual || is_empty(solution))
 	{
@@ -58,57 +108,8 @@ static void	keep_best_between(t_move_bt *solution, t_move_bt *actual, int index)
 			j++;
 		}
 	}
+	// print_after(solution, i - 1);
 }
-
-// int	target_b(int value, t_stack *b)
-// {
-// 	int			i;
-// 	t_dblist	*actual;
-
-// 	if (b->begin == NULL)
-// 		return (-1);
-// 	if (b->size == 1)
-// 		return (0);
-// 	i = 0;
-// 	actual = b->begin;
-// 	if (*(int *)actual->content > value)
-// 	{
-// 		if (*(int *)actual->prev->content < *(int *)actual->content
-// 			&& *(int *)actual->prev->content > value)
-// 			return (0);
-// 		while (*(int *)actual->content > value)
-// 		{
-// 			actual = actual->next;
-// 			i++;
-// 			if (*(int *)actual->prev->content < *(int *)actual->content)
-// 				break ;
-// 			if (actual->next == b->begin)
-// 				break ;
-// 		}
-// 	}
-// 	else
-// 	{
-// 		if (*(int *)actual->content < value)
-// 		{
-// 			if (*(int *)actual->prev->content < *(int *)actual->content)
-// 				return (0);
-// 			if (*(int *)actual->prev->content > value)
-// 				return (0);
-// 			i = b->size - 1;
-// 			actual = actual->prev;
-// 		}
-// 		while (*(int *)actual->content < value)
-// 		{
-// 			if (*(int *)actual->prev->content < *(int *)actual->content)
-// 				break ;
-// 			if (actual->prev == b->begin)
-// 				break ;
-// 			actual = actual->prev;
-// 			i--;
-// 		}
-// 	}
-// 	return (i);
-// }
 
 static t_bool	value_is_bigger(int value, t_dblist *actual)
 {
@@ -199,9 +200,7 @@ t_move_bt	*get_best(t_stack *a, t_stack *b, int index, t_move_bt *actual, t_move
 		// ft_printf("\n\033[0;32m == Move at index_a = %d\n == Target_b is %d = \n == Stack A size is %d = \n\n\033[0m", index_a, index_b, a->size);
 		*actual = get_best_move(a, b, index_a, index_b);
 		if (index == DEEPNESS - 1 || a->size == 1)
-		{
 			keep_best_between(solution, actual - index, index);
-		}
 		else
 		{
 			do_move(a, b, actual);
