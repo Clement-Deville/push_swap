@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_program.c                                     :+:      :+:    :+:   */
+/*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/19 18:59:39 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/27 18:01:11 by cdeville         ###   ########.fr       */
+/*   Created: 2024/02/27 10:13:58 by cdeville          #+#    #+#             */
+/*   Updated: 2024/02/27 10:48:23 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../INCLUDES/push_swap.h"
 
-void	del_content(int *number)
+void	swap(t_stack *stack)
 {
-	free(number);
-	number = NULL;
-}
+	t_dblist	*temp;
 
-int	exit_program(t_dblist **begin_a, t_dblist **begin_b)
-{
-	if (*begin_a)
-		(*begin_a)->prev->next = NULL;
-	ft_free("%d", begin_a, &del_content);
-	if (*begin_b)
-		(*begin_b)->prev->next = NULL;
-	ft_free("%d", begin_b, &del_content);
-	exit (0);
+	temp = stack->begin->next;
+	stack->begin->next->next->prev = stack->begin;
+	stack->begin->next = stack->begin->next->next;
+	temp->prev = stack->begin->prev;
+	temp->next = stack->begin;
+	stack->begin->prev->next = temp;
+	stack->begin->prev = temp;
+	stack->begin = temp;
 }

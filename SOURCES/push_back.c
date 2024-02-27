@@ -6,26 +6,11 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:32:15 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/22 14:06:02 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/27 17:03:41 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../INCLUDES/push_swap.h"
-
-// static	int	prev_value(t_dblist *actual)
-// {
-// 	return (*(int *)actual->prev->content);
-// }
-
-// static	int	next_value(t_dblist *actual)
-// {
-// 	return (*(int *)actual->next->content);
-// }
-
-static	int	actual_value(t_dblist *actual)
-{
-	return (*(int *)actual->content);
-}
 
 int	get_bigest(t_stack *b)
 {
@@ -38,17 +23,15 @@ int	get_bigest(t_stack *b)
 	actual = b->begin;
 	index_bigest = 0;
 	biggest = actual_value(actual);
-	while (1)
+	while (actual->next != b->begin)
 	{
+		actual = actual->next;
+		i++;
 		if (actual_value(actual) > biggest)
 		{
 			index_bigest = i;
 			biggest = actual_value(actual);
 		}
-		actual = actual->next;
-		i++;
-		if (actual == b->begin)
-			break ;
 	}
 	return (index_bigest);
 }

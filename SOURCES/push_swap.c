@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:21:16 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/22 18:46:14 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/27 20:28:20 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,92 +58,6 @@ char	**merge_arg(int argc, char **argv)
 	return (split);
 }
 
-t_bool	find_duplicate(int argc, char *argv[])
-{
-	t_hash	*htab;
-
-	htab = create_htab(argc, argv, &hash_int);
-	if (htab == NULL)
-		return (TRUE);
-	destroy_htab(htab, argc);
-	return (FALSE);
-}
-
-void	print_move(int count, char *key)
-{
-	int	i;
-
-	i = 0;
-	while (i < count)
-	{
-		ft_printf("%s\n", key);
-		i++;
-	}
-}
-
-void	print_solution(t_move_bt *solution)
-{
-	int	i;
-	int	j;
-	int	total;
-
-	total = 0;
-	i = 0;
-	while (solution->count != -1)
-	{
-		j = 0;
-		// ft_printf("\e[0;33m\n => Step %d\n\n\e[0m", i);
-		print_move(solution->rr, "rr");
-		print_move(solution->rrr, "rrr");
-		print_move(solution->ra, "ra");
-		print_move(solution->rra, "rra");
-		print_move(solution->rb, "rb");
-		print_move(solution->rrb, "rrb");
-		print_move(1, "pb");
-		// if ((i + 1) % DEEPNESS == 0)
-		// 	ft_printf("\e[0;33m");
-		// else
-		// 	ft_printf("\e[0m");
-		// ft_printf("\n%d ", solution->count);
-		// while (j < solution->count)
-		// {
-		// 	ft_printf("+");
-		// 	j++;
-		// }
-		// total += solution->count;
-		solution++;
-		i++;
-	}
-	// ft_printf("TOTAL = %d\n", total);
-}
-
-void	print_stack(t_dblist *begin)
-{
-	t_dblist	*actual;
-	int			*sd;
-	int			i;
-	// int			color;
-
-	actual = begin;
-	while (actual)
-	{
-		i = 0;
-		sd = actual->content;
-		// while (i < *(int *)(actual->content))
-		// {
-		// 	// color = get_color(*(int *)(actual->content));
-		// 	// ft_printf("\e[%im \e[0m|", color);
-		// 	ft_printf("\e[48;5;%im \e[0m|", *(int *)(actual->content) % 215 + 16);
-		// 	i++;
-		// }
-		ft_printf("%d\n", *(int *)(actual->content));
-		actual = actual->next;
-		if (actual == begin)
-			break ;
-	}
-	return ;
-}
-
 int	main(int argc, char *argv[])
 {
 	t_stack		a;
@@ -167,23 +81,38 @@ int	main(int argc, char *argv[])
 	b.begin = NULL;
 	if (a.begin == NULL)
 		return (error());
+	if (is_sorted(&a))
+		exit_program(&a.begin, &b.begin);
 	// Testing create stack by displaying it
 	// ft_printf("A: size = %d\n", a.size);
 	// print_stack(a.begin);
 	// ft_printf("B: size = %d ==\n", b.size);
 	// print_stack(b.begin);
 	// (void)solution;
-	solution = solve_bt(&a, &b);
-	// ft_printf("\nSOLUTION: \n\n");
-	print_solution(solution);
-	push_back(&a, &b);
+	if (a.size <= 5)
+		sort_small(&a, &b);
+	else
+	{
+		solution = solve_bt(&a, &b);
+
+		// ft_printf("\nSOLUTION: \n\n");
+
+		print_solution(solution);
+		push_back(&a, &b);
+		// swap(&a);
+		// ft_printf("\n");
+		// ft_printf("A: size = %d\n", a.size);
+		// print_stack(a.begin);
+		// ft_printf("B: size = %d ==\n", b.size);
+		// print_stack(b.begin);
+
+		free(solution);
+	}
 	// ft_printf("\n");
 	// ft_printf("A: size = %d\n", a.size);
 	// print_stack(a.begin);
 	// ft_printf("B: size = %d ==\n", b.size);
 	// print_stack(b.begin);
-	free(solution);
-	exit_program(&a.begin);
-	exit_program(&b.begin);
+	exit_program(&a.begin, &b.begin);
 	return (0);
 }
