@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 13:41:23 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/27 16:59:48 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/28 10:10:36 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,8 @@ void	sort_small(t_stack *a, t_stack *b)
 			sort_three(a);
 		while (b->size > 0)
 		{
-			// ft_printf("\n");
-			// ft_printf("A: size = %d\n", a->size);
-			// print_stack(a->begin);
-			// ft_printf("B: size = %d ==\n", b->size);
-			// print_stack(b->begin);
 			init_move(&move);
 			target = target_a(*(int *)b->begin->content, a);
-			// ft_printf("\n\nTARGET = %d\n\n", target);
 			move = get_best_move(a, b, target, 0);
 			do_move_back(a, b, &move);
 			print_full(move);

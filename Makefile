@@ -1,4 +1,5 @@
 SRCS_FILES =		push_swap \
+					merge	\
 					create_stack \
 					find_duplicate	\
 					error \
@@ -10,17 +11,23 @@ SRCS_FILES =		push_swap \
 					push	\
 					swap	\
 					move	\
+					move2	\
 					cost	\
+					init	\
 					push_back	\
 					sort_three	\
 					is_sorted	\
 					value	\
 					target	\
 					print	\
+					print2	\
 					sort_small	\
 
 BONUS_FILES =		checker_bonus \
+					checker_utils	\
+					checker_utils2	\
 					is_solution_valid	\
+					merge	\
 					create_stack \
 					find_duplicate	\
 					error \
@@ -32,13 +39,16 @@ BONUS_FILES =		checker_bonus \
 					push	\
 					swap	\
 					move	\
+					move2	\
 					cost	\
+					init	\
 					push_back	\
 					sort_three	\
 					is_sorted	\
 					value	\
 					target	\
 					print	\
+					print2	\
 					sort_small	\
 
 INCLUDES_FILES =	push_swap \

@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/19 11:28:03 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/28 10:11:52 by cdeville         ###   ########.fr       */
+/*   Created: 2024/02/28 11:12:22 by cdeville          #+#    #+#             */
+/*   Updated: 2024/02/28 11:13:14 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../INCLUDES/push_swap.h"
 
-int	error(void)
+void	init_move(t_move_bt *move)
 {
-	write(1, "Error\n", 6);
-	return (1);
+	move->count = 0;
+	move->ra = 0;
+	move->rra = 0;
+	move->rb = 0;
+	move->rrb = 0;
+	move->rr = 0;
+	move->rrr = 0;
 }
 
-int	error_check(void)
+void	init_solve(void *actual)
 {
-	char	*str;
+	int	i;
 
-	str = get_next_line(0);
-	if (ft_strncmp(str, "Error\n", 7) == 0)
-		ft_printf("OK\n");
-	else
-		ft_printf("KO\n");
-	while (str)
+	i = 0;
+	actual = (t_move_bt **)actual;
+	while (i < DEEPNESS)
 	{
-		free(str);
-		str = get_next_line(0);
+		init_move(&actual[i]);
+		i++;
 	}
-	return (0);
 }

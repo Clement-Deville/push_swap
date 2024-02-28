@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:22:18 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/27 20:22:48 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/28 11:36:53 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,12 @@ void		init_move(t_move_bt *move);
 t_move_bt	get_best_move(t_stack *a, t_stack *b, int index_a, int index_b);
 t_bool		find_duplicate(int argc, char *argv[]);
 
+char		**merge_arg(int argc, char **argv);
+int			count_elements_of(char **split);
+
+void		init_solve(void *actual);
+void		init_move(t_move_bt *move);
+
 void		print_stack(t_dblist *begin);
 void		print_move(int count, char *key);
 void		print_solution(t_move_bt *solution);
@@ -88,5 +94,17 @@ int			target_a(int value, t_stack *stack);
 void		del_content(int *number);
 
 t_bool		is_solution_valid(t_stack *a, t_stack *b);
+t_dblist	*create_stack_bonus(char *argv[]);
+int			error_check(void);
+int			check_pa(t_stack *a, t_stack *b);
+int			check_pb(t_stack *a, t_stack *b);
+int			check_sa(t_stack *a);
+int			check_rra(t_stack *a);
+int			check_ra(t_stack *a);
+int			check_rb(t_stack *b);
+int			check_rrb(t_stack *b);
+int			check_sb(t_stack *b);
+int			check_rr(t_stack *a, t_stack *b);
+int			check_rrr(t_stack *a, t_stack *b);
 
 #endif
