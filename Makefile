@@ -18,7 +18,8 @@ SRCS_FILES =		push_swap \
 					sort_three	\
 					is_sorted	\
 					value	\
-					target	\
+					target_a	\
+					target_b	\
 					print	\
 					print2	\
 					sort_small	\
@@ -46,7 +47,8 @@ BONUS_FILES =		checker_bonus \
 					sort_three	\
 					is_sorted	\
 					value	\
-					target	\
+					target_a	\
+					target_b	\
 					print	\
 					print2	\
 					sort_small	\
@@ -79,7 +81,7 @@ $(OBJS_DIR)%.o : $(SOURCE_DIR)%.c
 all: $(NAME)
 
 lib :
-		make -C $(LIBFT_DIR)
+	make -C $(LIBFT_DIR)
 
 $(NAME) : lib $(OBJS)
 	$(CC) $(CC_FLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft
@@ -98,4 +100,8 @@ re: fclean all
 bonus : lib $(OBJS_B)
 	$(CC) $(CFLAGS) $(OBJS_B) -o checker -L$(LIBFT_DIR) -lft
 
-.PHONY: all lib clean fclean re
+norminette : $(SOURCES) $(SOURCES_B) $(INCLUDES)
+	make norminette -C $(LIBFT_DIR)
+	norminette $(SOURCES) $(SOURCES_B) $(INCLUDES)
+
+.PHONY: all lib clean fclean re bonus norminette

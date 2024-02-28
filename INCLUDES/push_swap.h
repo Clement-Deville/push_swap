@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:22:18 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/28 14:40:44 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/28 19:57:38 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int			target_b(int value, t_stack *stack);
 int			actual_value(t_dblist *actual);
 int			prev_value(t_dblist *actual);
 int			next_value(t_dblist *actual);
+t_bool		value_is_smaller(int value, t_dblist *actual);
+t_bool		value_is_bigger(int value, t_dblist *actual);
 
 void		sort_small(t_stack *a, t_stack *b);
 
@@ -96,6 +98,7 @@ int			target_a(int value, t_stack *stack);
 void		do_move_back(t_stack *a, t_stack *b, t_move_bt *move);
 void		put_small_on_top(t_stack *a);
 void		del_content(int *number);
+void		clear_stacks(t_stack *a, t_stack *b);
 
 t_bool		is_solution_valid(t_stack *a, t_stack *b);
 t_dblist	*create_stack_bonus(char *argv[]);

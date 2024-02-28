@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 10:30:39 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/28 14:41:27 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/28 16:18:48 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	do_move(t_stack *a, t_stack *b, t_move_bt *move)
 	do_reverse_rotate(a, move->rra, "rra");
 	do_rotate(b, move->rb, "rb");
 	do_reverse_rotate(b, move->rrb, "rrb");
-	push(a, b);
+	do_push(a, b, 1, "pb");
 }
 
 // void	undo_move(t_stack *a, t_stack *b, t_move_bt *move)

@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:32:15 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/28 13:36:22 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/28 16:15:39 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ void	push_back(t_stack *a, t_stack *b)
 		target = target_a(*(int *)b->begin->content, a);
 		move = get_best_move(a, b, target, 0);
 		do_move_back(a, b, &move);
-		print_full(move);
-		print_move(1, "pa");
 	}
 	put_small_on_top(a);
 }

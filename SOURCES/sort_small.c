@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 13:41:23 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/28 13:39:12 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/28 16:15:45 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	do_move_back(t_stack *a, t_stack *b, t_move_bt *move)
 {
 	do_rr(a, b, move->rr);
 	do_rrr(a, b, move->rrr);
-	do_rotate(a, move->ra);
-	do_reverse_rotate(a, move->rra);
-	do_rotate(b, move->rb);
-	do_reverse_rotate(b, move->rrb);
-	push(b, a);
+	do_rotate(a, move->ra, "ra");
+	do_reverse_rotate(a, move->rra, "rra");
+	do_rotate(b, move->rb, "rb");
+	do_reverse_rotate(b, move->rrb, "rrb");
+	do_push(b, a, 1, "pa");
 }
 
 void	put_small_on_top(t_stack *a)
@@ -45,21 +45,14 @@ void	put_small_on_top(t_stack *a)
 		}
 	}
 	if (index_small < a->size - index_small)
-	{
-		do_rotate(a, index_small);
-		print_move(index_small, "ra");
-	}
+		do_rotate(a, index_small, "ra");
 	else
-	{
-		do_reverse_rotate(a, a->size - index_small);
-		print_move(a->size - index_small, "rra");
-	}
+		do_reverse_rotate(a, a->size - index_small, "rra");
 }
 
 void	sort_two(t_stack *a)
 {
-	rotate(a);
-	print_move(1, "ra");
+	do_rotate(a, 1, "ra");
 }
 
 void	sort_small(t_stack *a, t_stack *b)
@@ -71,10 +64,7 @@ void	sort_small(t_stack *a, t_stack *b)
 	else
 	{
 		while (a->size > 3)
-		{
-			push(a, b);
-			print_move(1, "pb");
-		}
+			do_push(a, b, 1, "pb");
 		if (is_sorted(a) == FALSE)
 			sort_three(a);
 		push_back(a, b);
