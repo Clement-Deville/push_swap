@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reverse_rotate.c                                   :+:      :+:    :+:   */
+/*   value.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/05 15:08:16 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/28 14:13:31 by cdeville         ###   ########.fr       */
+/*   Created: 2024/02/27 11:25:00 by cdeville          #+#    #+#             */
+/*   Updated: 2024/02/27 11:25:44 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../INCLUDES/push_swap.h"
 
-void	reverse_rotate(t_stack *stack, char *key)
+int	prev_value(t_dblist *actual)
 {
-	stack->begin = stack->begin->prev;
-	print_move(1, key);
+	return (*(int *)actual->prev->content);
+}
+
+int	next_value(t_dblist *actual)
+{
+	return (*(int *)actual->next->content);
+}
+
+int	actual_value(t_dblist *actual)
+{
+	return (*(int *)actual->content);
 }

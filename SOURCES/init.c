@@ -1,19 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reverse_rotate.c                                   :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/05 15:08:16 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/28 14:13:31 by cdeville         ###   ########.fr       */
+/*   Created: 2024/02/28 11:12:22 by cdeville          #+#    #+#             */
+/*   Updated: 2024/02/28 11:13:14 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../INCLUDES/push_swap.h"
 
-void	reverse_rotate(t_stack *stack, char *key)
+void	init_move(t_move_bt *move)
 {
-	stack->begin = stack->begin->prev;
-	print_move(1, key);
+	move->count = 0;
+	move->ra = 0;
+	move->rra = 0;
+	move->rb = 0;
+	move->rrb = 0;
+	move->rr = 0;
+	move->rrr = 0;
+}
+
+void	init_solve(void *actual)
+{
+	int	i;
+
+	i = 0;
+	actual = (t_move_bt **)actual;
+	while (i < DEEPNESS)
+	{
+		init_move(&actual[i]);
+		i++;
+	}
 }

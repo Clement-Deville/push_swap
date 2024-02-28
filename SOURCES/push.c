@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:12:13 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/09 13:46:37 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/28 14:28:03 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ int	push(t_stack *src, t_stack *dest)
 		dest->begin->prev = dest->begin;
 	}
 	else
+	{
 		ft_dblstadd_before(dest->begin, temp);
+		dest->begin = temp;
+	}
 	src->size--;
 	dest->size++;
 	return (0);

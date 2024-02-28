@@ -6,7 +6,7 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:36:49 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/14 14:26:19 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/28 14:40:36 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,62 +14,58 @@
 
 void	do_rr(t_stack *a, t_stack *b, int count)
 {
-	while (count)
+	int	i;
+
+	i = 0;
+	while (i < count)
 	{
 		if (a->begin && a->size)
-			a->begin = rotate(a->begin);
+			rotate(a);
 		if (b->begin && b->size)
-			b->begin = rotate(b->begin);
-		count--;
+			rotate(b);
+		print_move(1, "ra");
+		print_move(1, "rb");
+		i++;
 	}
 }
 
 void	do_rrr(t_stack *a, t_stack *b, int count)
 {
-	while (count)
+	int	i;
+
+	i = 0;
+	while (i < count)
 	{
-		a->begin = reverse_rotate(a->begin);
-		b->begin = reverse_rotate(b->begin);
-		count--;
+		reverse_rotate(a);
+		reverse_rotate(b);
+		print_move(1, "rra");
+		print_move(1, "rrb");
+		i++;
 	}
 }
 
-void	do_rotate(t_stack *stack, int count)
+void	do_rotate(t_stack *stack, int count, char *key)
 {
-	while (count)
+	int	i;
+
+	i = 0;
+	while (i < count)
 	{
-		stack->begin = rotate(stack->begin);
-		count--;
+		rotate(stack);
+		print_move(1, key);
+		i++;
 	}
 }
 
-void	do_reverse_rotate(t_stack *stack, int count)
+void	do_reverse_rotate(t_stack *stack, int count, char *key)
 {
-	while (count)
+	int	i;
+
+	i = 0;
+	while (i < count)
 	{
-		stack->begin = rotate(stack->begin);
-		count--;
+		reverse_rotate(stack);
+		print_move(1, key);
+		i++;
 	}
-}
-
-void	do_move(t_stack *a, t_stack *b, t_move_bt move)
-{
-	do_rr(a, b, move.rr);
-	do_rrr(a, b, move.rrr);
-	do_rotate(a, move.ra);
-	do_reverse_rotate(a, move.rra);
-	do_rotate(b, move.rb);
-	do_reverse_rotate(b, move.rrb);
-	push(a, b);
-}
-
-void	undo_move(t_stack *a, t_stack *b, t_move_bt *move)
-{
-	push(b, a);
-	do_rotate(a, move->rra);
-	do_reverse_rotate(a, move->ra);
-	do_rotate(b, move->rrb);
-	do_reverse_rotate(b, move->rb);
-	do_rr(a, b, move->rrr);
-	do_rrr(a, b, move->rr);
 }

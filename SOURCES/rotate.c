@@ -6,13 +6,14 @@
 /*   By: cdeville <cdeville@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 15:05:12 by cdeville          #+#    #+#             */
-/*   Updated: 2024/02/13 14:37:36 by cdeville         ###   ########.fr       */
+/*   Updated: 2024/02/28 14:13:28 by cdeville         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../INCLUDES/push_swap.h"
 
-t_dblist	*rotate(t_dblist *begin)
+void	rotate(t_stack *stack, char *key)
 {
-	return (begin->prev);
+	stack->begin = stack->begin->next;
+	print_move(1, key);
 }
